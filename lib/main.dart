@@ -1,7 +1,8 @@
 import 'package:bloc_intro/first_screen.dart';
-import 'package:bloc_intro/provider/todo_inherited_widget.dart';
-import 'package:bloc_intro/provider/todo_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'bloc/todo_bloc.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,8 +13,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TodoInheritedWidget(
-      data: TodoProvider([]),
+    return BlocProvider(
+      create: (_) => TodoBloc(),
       child: const MaterialApp(
         home: FirstScreen(),
       ),

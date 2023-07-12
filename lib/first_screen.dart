@@ -1,7 +1,9 @@
-import 'package:bloc_intro/extension/extension_context.dart';
+import 'package:bloc_intro/bloc/todo_bloc.dart';
+import 'package:bloc_intro/bloc/todo_event.dart';
 import 'package:bloc_intro/list_view.dart';
 import 'package:bloc_intro/todo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({super.key});
@@ -60,10 +62,9 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   void _createTodo() {
-    final todoProvider = context.get();
-    final newTodo =
-        Todo(_editingController.text, todoProvider.data.todos.length + 1);
-    todoProvider.data.addTodo(newTodo);
+    final todoBloc = BlocProvider.of<TodoBloc>(context);
+    final newTodo = Todo(_editingController.text, todoBloc.todos.length + 1);
+    todoBloc.add(AddTodoEvent(newTodo));
     _editingController.clear();
   }
 }
